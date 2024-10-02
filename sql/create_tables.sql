@@ -1,6 +1,5 @@
 create table alkatresz(
-	id int primary key not null,
-    cikkszam varchar(15) not null,
+    cikkszam varchar(15) primary key not null,
     megnevezes varchar(60) not null,
     auto_tipus varchar(30) not null,
     ar int not null,
@@ -10,7 +9,9 @@ create table alkatresz(
 create table raktar(
 	id int primary key not null,
     nev varchar(50) not null,
-    varos varchar(30) not null
+    varos varchar(30) not null,
+    cim varchar(60) not null,
+    kapacitas int not null
 );
 
 alter table alkatresz
