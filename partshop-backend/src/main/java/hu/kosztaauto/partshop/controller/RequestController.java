@@ -1,7 +1,9 @@
 package hu.kosztaauto.partshop.controller;
 
-import hu.kosztaauto.partshop.database.Alkatresz;
-import hu.kosztaauto.partshop.database.Raktar;
+import hu.kosztaauto.partshop.dto.AlkatreszDTO;
+import hu.kosztaauto.partshop.dto.AlkatreszWithWarehouseDTO;
+import hu.kosztaauto.partshop.dto.RaktarDTO;
+import hu.kosztaauto.partshop.dto.RaktarWithItemsDTO;
 import hu.kosztaauto.partshop.service.AlkatreszService;
 import hu.kosztaauto.partshop.service.RaktarService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +23,23 @@ public class RequestController {
     @Autowired
     private RaktarService raktarService;
 
-    @GetMapping("/getAllParts")
-    public List<Alkatresz> getAllParts() {
-        return alkatreszService.getAllParts();
+    @GetMapping("/getAllItems")
+    public List<AlkatreszDTO> getAllItems() {
+        return alkatreszService.getAllItems();
     }
 
     @GetMapping("/getAllWarehouses")
-    public List<Raktar> getAllWarehouses() {
+    public List<RaktarDTO> getAllWarehouses() {
         return raktarService.getAllWarehouses();
+    }
+
+    @GetMapping("/getAllItemsByWarehouse")
+    public List<RaktarWithItemsDTO> getAllItemsByWarehouse() {
+        return raktarService.getAllItemsByWarehouse();
+    }
+
+    @GetMapping("/getAllWarehousesByItem")
+    public List<AlkatreszWithWarehouseDTO> getAllWarehousesByItem() {
+        return alkatreszService.getAllWarehousesByItem();
     }
 }
