@@ -1,9 +1,7 @@
 package hu.kosztaauto.partshop.repository;
 
-import hu.kosztaauto.partshop.database.Alkatresz;
+import hu.kosztaauto.partshop.model.Alkatresz;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public interface AlkatreszRepository extends JpaRepository<Alkatresz, Integer> {
+public interface AlkatreszRepository extends JpaRepository<Alkatresz, String> {
 }
