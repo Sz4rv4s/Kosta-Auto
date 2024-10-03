@@ -33,4 +33,4 @@ build/
 .vscode/
 
 ### Env files ###
-partshop-backend/.env
+/partshop-backend/src/main/resources/.env
