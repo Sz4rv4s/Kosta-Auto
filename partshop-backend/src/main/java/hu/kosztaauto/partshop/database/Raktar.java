@@ -1,5 +1,6 @@
 package hu.kosztaauto.partshop.database;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,6 +32,7 @@ public class Raktar {
         @Column(name = "kapacitas")
         private int kapacitas;
 
+        @JsonIgnore
         @OneToMany(mappedBy = "raktar", cascade = CascadeType.ALL)
         private List<Alkatresz> alkatreszek;
 }

@@ -1,6 +1,7 @@
 package hu.kosztaauto.partshop.database;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,5 +29,6 @@ public class Alkatresz {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "raktar_id", referencedColumnName = "id")
+    @JsonIgnore
     private Raktar raktar;
 }
