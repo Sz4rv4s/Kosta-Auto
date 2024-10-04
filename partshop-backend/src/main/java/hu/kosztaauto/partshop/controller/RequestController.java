@@ -23,22 +23,22 @@ public class RequestController {
     @Autowired
     private RaktarService raktarService;
 
-    @GetMapping("/getAllItems")
+    @GetMapping("/getallitems")
     public List<AlkatreszDTO> getAllItems() {
         return alkatreszService.getAllItems();
     }
 
-    @GetMapping("/getAllWarehouses")
+    @GetMapping("/getallwarehouses")
     public List<RaktarDTO> getAllWarehouses() {
         return raktarService.getAllWarehouses();
     }
 
-    @GetMapping("/getAllItemsByWarehouse")
+    @GetMapping("/getallitemsbywarehouse")
     public List<RaktarWithItemsDTO> getAllItemsByWarehouse() {
         return raktarService.getAllItemsByWarehouse();
     }
 
-    @GetMapping("/getAllWarehousesByItem")
+    @GetMapping("/getallwarehousesbyitem")
     public List<AlkatreszWithWarehouseDTO> getAllWarehousesByItem() {
         return alkatreszService.getAllWarehousesByItem();
     }
