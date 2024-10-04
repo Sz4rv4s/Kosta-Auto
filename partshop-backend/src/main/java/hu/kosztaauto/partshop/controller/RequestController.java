@@ -7,9 +7,7 @@ import hu.kosztaauto.partshop.dto.RaktarWithItemsDTO;
 import hu.kosztaauto.partshop.service.AlkatreszService;
 import hu.kosztaauto.partshop.service.RaktarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,23 +21,33 @@ public class RequestController {
     @Autowired
     private RaktarService raktarService;
 
-    @GetMapping("/getAllItems")
+    @GetMapping("/getallitems")
     public List<AlkatreszDTO> getAllItems() {
         return alkatreszService.getAllItems();
     }
 
-    @GetMapping("/getAllWarehouses")
+    @GetMapping("/getallwarehouses")
     public List<RaktarDTO> getAllWarehouses() {
         return raktarService.getAllWarehouses();
     }
 
-    @GetMapping("/getAllItemsByWarehouse")
+    @GetMapping("/getallitemsbywarehouse")
     public List<RaktarWithItemsDTO> getAllItemsByWarehouse() {
         return raktarService.getAllItemsByWarehouse();
     }
 
-    @GetMapping("/getAllWarehousesByItem")
+    @GetMapping("/getallwarehousesbyitem")
     public List<AlkatreszWithWarehouseDTO> getAllWarehousesByItem() {
         return alkatreszService.getAllWarehousesByItem();
+    }
+
+    @GetMapping("/getitem/{id}")
+    public AlkatreszDTO getItemByCikkszam(@PathVariable String id) {
+        return alkatreszService.getItemById(id);
+    }
+
+    @GetMapping("/search/{name}")
+    public List<AlkatreszDTO> searchItemByName(@PathVariable String name) {
+        return alkatreszService.searchByName(name);
     }
 }
