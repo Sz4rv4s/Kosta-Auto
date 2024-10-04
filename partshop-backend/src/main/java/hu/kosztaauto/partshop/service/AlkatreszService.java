@@ -6,7 +6,9 @@ import hu.kosztaauto.partshop.dto.RaktarDTO;
 import hu.kosztaauto.partshop.model.Alkatresz;
 import hu.kosztaauto.partshop.repository.AlkatreszRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +29,12 @@ public class AlkatreszService {
         return alkatreszRepository.findAll().stream()
                 .map(this::convertToAlkatreszWithWarehouseDTO)
                 .collect(Collectors.toList());
+    }
+
+    public AlkatreszDTO getItemById(String id) {
+        return alkatreszRepository.findById(id)
+                .map(this::convertToAlkatreszDTO)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found"));
     }
 
     private AlkatreszDTO convertToAlkatreszDTO(Alkatresz alkatresz) {

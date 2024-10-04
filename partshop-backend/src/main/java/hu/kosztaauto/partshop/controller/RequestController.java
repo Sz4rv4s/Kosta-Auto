@@ -8,6 +8,7 @@ import hu.kosztaauto.partshop.service.AlkatreszService;
 import hu.kosztaauto.partshop.service.RaktarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,5 +42,10 @@ public class RequestController {
     @GetMapping("/getallwarehousesbyitem")
     public List<AlkatreszWithWarehouseDTO> getAllWarehousesByItem() {
         return alkatreszService.getAllWarehousesByItem();
+    }
+
+    @GetMapping("/getitem/{id}")
+    public AlkatreszDTO getItemByCikkszam(@PathVariable String id) {
+        return alkatreszService.getItemById(id);
     }
 }
