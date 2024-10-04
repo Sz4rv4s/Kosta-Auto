@@ -15,6 +15,7 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
+partshop-backend/.idea
 *.iws
 *.iml
 *.ipr
