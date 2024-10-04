@@ -7,10 +7,7 @@ import hu.kosztaauto.partshop.dto.RaktarWithItemsDTO;
 import hu.kosztaauto.partshop.service.AlkatreszService;
 import hu.kosztaauto.partshop.service.RaktarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,5 +44,10 @@ public class RequestController {
     @GetMapping("/getitem/{id}")
     public AlkatreszDTO getItemByCikkszam(@PathVariable String id) {
         return alkatreszService.getItemById(id);
+    }
+
+    @GetMapping("/search/{name}")
+    public List<AlkatreszDTO> searchItemByName(@PathVariable String name) {
+        return alkatreszService.searchByName(name);
     }
 }

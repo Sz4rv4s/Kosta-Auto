@@ -37,6 +37,12 @@ public class AlkatreszService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found"));
     }
 
+    public List<AlkatreszDTO> searchByName(String name) {
+        return alkatreszRepository.findByMegnevezesContainingIgnoreCase(name).stream()
+                .map(this::convertToAlkatreszDTO)
+                .collect(Collectors.toList());
+    }
+
     private AlkatreszDTO convertToAlkatreszDTO(Alkatresz alkatresz) {
         return new AlkatreszDTO(
                 alkatresz.getCikkszam(),
