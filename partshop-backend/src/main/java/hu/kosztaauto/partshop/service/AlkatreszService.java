@@ -4,7 +4,9 @@ import hu.kosztaauto.partshop.dto.AlkatreszDTO;
 import hu.kosztaauto.partshop.dto.AlkatreszWithWarehouseDTO;
 import hu.kosztaauto.partshop.dto.RaktarDTO;
 import hu.kosztaauto.partshop.model.Alkatresz;
+import hu.kosztaauto.partshop.model.Raktar;
 import hu.kosztaauto.partshop.repository.AlkatreszRepository;
+import hu.kosztaauto.partshop.repository.RaktarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,9 @@ public class AlkatreszService {
 
     @Autowired
     private AlkatreszRepository alkatreszRepository;
+
+    @Autowired
+    private RaktarRepository raktarRepository;
 
     public List<AlkatreszDTO> getAllItems() {
         return alkatreszRepository.findAll().stream()
@@ -41,6 +46,23 @@ public class AlkatreszService {
         return alkatreszRepository.findByMegnevezesContainingIgnoreCase(name).stream()
                 .map(this::convertToAlkatreszDTO)
                 .collect(Collectors.toList());
+    }
+
+    public AlkatreszDTO addItem(AlkatreszDTO alkatreszDTO, Long raktarId) {
+
+        Raktar raktar = raktarRepository.findById(raktarId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Warehouse not found"));
+
+        Alkatresz alkatresz = new Alkatresz();
+        alkatresz.setCikkszam(alkatreszDTO.getCikkszam());
+        alkatresz.setMegnevezes(alkatreszDTO.getMegnevezes());
+        alkatresz.setAutoTipus(alkatreszDTO.getAutoTipus());
+        alkatresz.setAr(alkatreszDTO.getAr());
+        alkatresz.setRaktar(raktar);
+
+        Alkatresz savedAlkatresz = alkatreszRepository.save(alkatresz);
+
+        return convertToAlkatreszDTO(savedAlkatresz);
     }
 
     private AlkatreszDTO convertToAlkatreszDTO(Alkatresz alkatresz) {

@@ -61,4 +61,8 @@ public class RequestController {
         return raktarService.getItemsByWarehouseName(warehouseName);
     }
 
+    @PostMapping("/additem/{warehouseId}")
+    public AlkatreszDTO addItem(@RequestBody AlkatreszDTO alkatreszDTO, @PathVariable Long warehouseId) {
+        return alkatreszService.addItem(alkatreszDTO, warehouseId);
+    }
 }
