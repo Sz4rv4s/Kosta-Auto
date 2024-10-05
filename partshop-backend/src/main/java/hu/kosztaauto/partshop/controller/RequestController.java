@@ -50,4 +50,15 @@ public class RequestController {
     public List<AlkatreszDTO> searchItemByName(@PathVariable String name) {
         return alkatreszService.searchByName(name);
     }
+
+    @GetMapping("/getwarehousebyid/{warehouseId}")
+    public RaktarWithItemsDTO getItemsByWarehouseId(@PathVariable Long warehouseId) {
+        return raktarService.getItemsByWarehouseId(warehouseId);
+    }
+
+    @GetMapping("/getwarehousebyname/{warehouseName}")
+    public List<RaktarWithItemsDTO> getItemsByWarehouseName(@PathVariable String warehouseName) {
+        return raktarService.getItemsByWarehouseName(warehouseName);
+    }
+
 }

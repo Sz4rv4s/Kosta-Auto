@@ -6,7 +6,9 @@ import hu.kosztaauto.partshop.dto.RaktarWithItemsDTO;
 import hu.kosztaauto.partshop.model.Raktar;
 import hu.kosztaauto.partshop.repository.RaktarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +29,19 @@ public class RaktarService {
         return raktarRepository.findAll().stream()
                 .map(this::convertToRaktarWithItemsDTO)
                 .collect(Collectors.toList());
+    }
+
+    public List<RaktarWithItemsDTO> getItemsByWarehouseName(String name) {
+        return raktarRepository.findByNevContainingIgnoreCase(name).stream()
+                .map(this::convertToRaktarWithItemsDTO)
+                .collect(Collectors.toList());
+    }
+
+    public RaktarWithItemsDTO getItemsByWarehouseId(Long warehouseId) {
+        Raktar raktar = raktarRepository.findById(warehouseId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Warehouse not found"));
+
+        return convertToRaktarWithItemsDTO(raktar);
     }
 
     private RaktarDTO convertToRaktarDTO(Raktar raktar) {
