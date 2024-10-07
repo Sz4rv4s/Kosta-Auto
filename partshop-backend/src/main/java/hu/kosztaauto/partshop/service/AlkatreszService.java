@@ -93,6 +93,20 @@ public class AlkatreszService {
         return convertToAlkatreszDTO(savedAlkatresz);
     }
     /**
+     * Updates the price of an item identified by its cikkszam.
+     *
+     * @param id The ID of the item.
+     * @param newPrice The new price to set for the item.
+     * @throws ResponseStatusException if the item is not found.
+     */
+    public void updateItemPrice(String id, int newPrice) {
+        Alkatresz alkatresz = alkatreszRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found"));
+
+        alkatresz.setAr(newPrice);
+        alkatreszRepository.save(alkatresz);
+    }
+    /**
      * Converts an {@link Alkatresz} entity to a {@link AlkatreszDTO}.
      *
      * @param alkatresz The car part entity to convert.

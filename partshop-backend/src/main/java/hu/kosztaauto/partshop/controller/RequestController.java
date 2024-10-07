@@ -1,13 +1,11 @@
 package hu.kosztaauto.partshop.controller;
 
-import hu.kosztaauto.partshop.dto.AlkatreszDTO;
-import hu.kosztaauto.partshop.dto.AlkatreszWithWarehouseDTO;
-import hu.kosztaauto.partshop.dto.RaktarDTO;
-import hu.kosztaauto.partshop.dto.RaktarWithItemsDTO;
+import hu.kosztaauto.partshop.dto.*;
 import hu.kosztaauto.partshop.service.AlkatreszService;
 import hu.kosztaauto.partshop.service.RaktarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 /**
@@ -108,5 +106,20 @@ public class RequestController {
     @PostMapping("/additem/{warehouseId}")
     public AlkatreszDTO addItem(@RequestBody AlkatreszDTO alkatreszDTO, @PathVariable Long warehouseId) {
         return alkatreszService.addItem(alkatreszDTO, warehouseId);
+    }
+    /**
+     * Updates the price of an item identified by its ID.
+     *
+     * @param updatePriceDTO DTO containing the item ID and the new price.
+     * @return ApiResponseDTO containing success or failure message.
+     */
+    @PutMapping("/updateprice")
+    public ApiResponseDTO updatePrice(@RequestBody UpdatePriceDTO updatePriceDTO) {
+        try {
+            alkatreszService.updateItemPrice(updatePriceDTO.getId(), updatePriceDTO.getNewPrice());
+            return new ApiResponseDTO("Price updated successfully.");
+        } catch (ResponseStatusException e) {
+            return new ApiResponseDTO("Failed to update price: " + e.getReason());
+        }
     }
 }
