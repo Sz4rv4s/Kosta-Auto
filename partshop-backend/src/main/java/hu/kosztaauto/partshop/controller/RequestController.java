@@ -1,13 +1,11 @@
 package hu.kosztaauto.partshop.controller;
 
-import hu.kosztaauto.partshop.dto.AlkatreszDTO;
-import hu.kosztaauto.partshop.dto.AlkatreszWithWarehouseDTO;
-import hu.kosztaauto.partshop.dto.RaktarDTO;
-import hu.kosztaauto.partshop.dto.RaktarWithItemsDTO;
+import hu.kosztaauto.partshop.dto.*;
 import hu.kosztaauto.partshop.service.AlkatreszService;
 import hu.kosztaauto.partshop.service.RaktarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 /**
@@ -103,10 +101,48 @@ public class RequestController {
      *
      * @param alkatreszDTO The car part details to be added.
      * @param warehouseId  The ID of the warehouse where the part will be stored.
-     * @return The newly added car part as {@link AlkatreszDTO}.
+     * @return ApiResponseDTO containing a success or failure message.
      */
     @PostMapping("/additem/{warehouseId}")
-    public AlkatreszDTO addItem(@RequestBody AlkatreszDTO alkatreszDTO, @PathVariable Long warehouseId) {
-        return alkatreszService.addItem(alkatreszDTO, warehouseId);
+    public ApiResponseDTO addItem(@RequestBody AlkatreszDTO alkatreszDTO, @PathVariable Long warehouseId) {
+        try {
+            alkatreszService.addItem(alkatreszDTO, warehouseId);
+            return new ApiResponseDTO("Item added successfully.");
+        } catch (ResponseStatusException e) {
+            return new ApiResponseDTO("Failed to add item: " + e.getReason());
+        }
+    }
+    /**
+     * Updates the price of an item identified by its ID.
+     *
+     * @param updatePriceDTO DTO containing the item ID and the new price.
+     * @return ApiResponseDTO containing success or failure message.
+     */
+    @PutMapping("/updateprice")
+    public ApiResponseDTO updatePrice(@RequestBody UpdatePriceDTO updatePriceDTO) {
+        try {
+            alkatreszService.updateItemPrice(updatePriceDTO.getId(), updatePriceDTO.getNewPrice());
+            return new ApiResponseDTO("Price updated successfully.");
+        } catch (ResponseStatusException e) {
+            return new ApiResponseDTO("Failed to update price: " + e.getReason());
+        }
+    }
+    /**
+     * Updates all fields of an item except its ID.
+     *
+     * @param id The ID of the item to update.
+     * @param updateAlkatreszDTO The updated data for the item.
+     * @return ApiResponseDTO containing success or failure message.
+     */
+    @PutMapping("/updateitem/{id}")
+    public ApiResponseDTO updateItem(
+            @PathVariable String id,
+            @RequestBody UpdateAlkatreszDTO updateAlkatreszDTO) {
+        try {
+            alkatreszService.updateItem(id, updateAlkatreszDTO);
+            return new ApiResponseDTO("Item updated successfully.");
+        } catch (ResponseStatusException e) {
+            return new ApiResponseDTO("Failed to update item: " + e.getReason());
+        }
     }
 }
