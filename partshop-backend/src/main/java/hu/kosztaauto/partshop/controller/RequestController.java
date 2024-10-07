@@ -122,4 +122,22 @@ public class RequestController {
             return new ApiResponseDTO("Failed to update price: " + e.getReason());
         }
     }
+    /**
+     * Updates all fields of an item except its ID.
+     *
+     * @param id The ID of the item to update.
+     * @param updateAlkatreszDTO The updated data for the item.
+     * @return ApiResponseDTO containing success or failure message.
+     */
+    @PutMapping("/updateitem/{id}")
+    public ApiResponseDTO updateItem(
+            @PathVariable String id,
+            @RequestBody UpdateAlkatreszDTO updateAlkatreszDTO) {
+        try {
+            alkatreszService.updateItem(id, updateAlkatreszDTO);
+            return new ApiResponseDTO("Item updated successfully.");
+        } catch (ResponseStatusException e) {
+            return new ApiResponseDTO("Failed to update item: " + e.getReason());
+        }
+    }
 }

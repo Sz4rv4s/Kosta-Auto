@@ -3,6 +3,7 @@ package hu.kosztaauto.partshop.service;
 import hu.kosztaauto.partshop.dto.AlkatreszDTO;
 import hu.kosztaauto.partshop.dto.AlkatreszWithWarehouseDTO;
 import hu.kosztaauto.partshop.dto.RaktarDTO;
+import hu.kosztaauto.partshop.dto.UpdateAlkatreszDTO;
 import hu.kosztaauto.partshop.model.Alkatresz;
 import hu.kosztaauto.partshop.model.Raktar;
 import hu.kosztaauto.partshop.repository.AlkatreszRepository;
@@ -104,6 +105,27 @@ public class AlkatreszService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found"));
 
         alkatresz.setAr(newPrice);
+        alkatreszRepository.save(alkatresz);
+    }
+    /**
+     * Updates an item with the provided data, except for the item's ID.
+     *
+     * @param id The ID of the item to update.
+     * @param updateAlkatreszDTO The updated data for the item.
+     * @throws ResponseStatusException if the item or warehouse is not found.
+     */
+    public void updateItem(String id, UpdateAlkatreszDTO updateAlkatreszDTO) {
+        Alkatresz alkatresz = alkatreszRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found"));
+
+        alkatresz.setMegnevezes(updateAlkatreszDTO.getMegnevezes());
+        alkatresz.setAutoTipus(updateAlkatreszDTO.getAutoTipus());
+        alkatresz.setAr(updateAlkatreszDTO.getAr());
+
+        Raktar newRaktar = raktarRepository.findById(updateAlkatreszDTO.getRaktarId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Warehouse not found"));
+        alkatresz.setRaktar(newRaktar);
+
         alkatreszRepository.save(alkatresz);
     }
     /**
