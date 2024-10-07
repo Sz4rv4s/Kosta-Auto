@@ -101,11 +101,16 @@ public class RequestController {
      *
      * @param alkatreszDTO The car part details to be added.
      * @param warehouseId  The ID of the warehouse where the part will be stored.
-     * @return The newly added car part as {@link AlkatreszDTO}.
+     * @return ApiResponseDTO containing a success or failure message.
      */
     @PostMapping("/additem/{warehouseId}")
-    public AlkatreszDTO addItem(@RequestBody AlkatreszDTO alkatreszDTO, @PathVariable Long warehouseId) {
-        return alkatreszService.addItem(alkatreszDTO, warehouseId);
+    public ApiResponseDTO addItem(@RequestBody AlkatreszDTO alkatreszDTO, @PathVariable Long warehouseId) {
+        try {
+            alkatreszService.addItem(alkatreszDTO, warehouseId);
+            return new ApiResponseDTO("Item added successfully.");
+        } catch (ResponseStatusException e) {
+            return new ApiResponseDTO("Failed to add item: " + e.getReason());
+        }
     }
     /**
      * Updates the price of an item identified by its ID.
