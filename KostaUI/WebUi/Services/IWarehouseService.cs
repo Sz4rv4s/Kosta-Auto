@@ -1,7 +1,7 @@
 ﻿using hu.Kostaauto.WebUi.Data;
 using Refit;
 
-namespace WebUi.Services;
+namespace hu.Kostaauto.WebUi.Services;
 
 public interface IWarehouseService
 {
