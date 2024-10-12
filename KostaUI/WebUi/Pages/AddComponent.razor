@@ -1,0 +1,62 @@
+﻿@page "/addcomponent/{id:long}"
+
+@using Blazored.FluentValidation
+
+@inject IWarehouseService WarehouseService;
+@inject IComponentService ComponentService;
+@inject NavigationManager NavigationManager;
+
+@if (_result is not null)
+{
+    <h2 class="my-2">Uj tetel felvetele a "@_result.Nev" raktarba</h2>
+    
+    <EditForm Model="_component" OnValidSubmit="AddNewComponentAsync">
+        <FluentValidationValidator />
+        <div class="form-group">
+            <label for="cikkszam">Cikkszam</label>
+            <InputText id="cikkszam" @bind-Value="@_component.Cikkszam" class="form-control"></InputText>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div class="form-group">
+            <label for="megnevezes">Megnevezes</label>
+            <InputText id="megnevezes" @bind-Value="@_component.Megnevezes" class="form-control"></InputText>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div class="form-group">
+            <label for="auto-tipus">Tipus</label>
+            <InputText id="auto-tipus" @bind-Value="@_component.AutoTipus" class="form-control"></InputText>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div class="form-group">
+            <label for="ar">Ar</label>
+            <InputNumber id="ar" @bind-Value="@_component.Ar" class="form-control"></InputNumber>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <button class="btn btn-secondary my-2" type="submit">Uj termek felvetele</button>
+    </EditForm>
+}
+else
+{
+    <p>Nincs megjelenitheto raktar...</p>
+}
+
+@code {
+
+    [Parameter] public long Id { get; set; }
+
+    private WarehouseDto _result;
+    private ComponentDto _component = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _result = await WarehouseService.GetWarehouseByIdAsync(Id);
+    }
+
+    private async Task AddNewComponentAsync()
+    {
+        ComponentService.AddItemToWarehouseAsync(Id, _component);
+        
+        NavigationManager.NavigateTo("listcomponents");
+    }
+
+}

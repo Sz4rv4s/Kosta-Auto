@@ -93,6 +93,13 @@ public class AlkatreszService {
 
         return convertToAlkatreszDTO(savedAlkatresz);
     }
+    public void deleteItem(String cikkszam) {
+
+        Alkatresz alkatresz = alkatreszRepository.findById(cikkszam)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found"));
+
+        alkatreszRepository.delete(alkatresz);
+    }
     /**
      * Updates the price of an item identified by its cikkszam.
      *
