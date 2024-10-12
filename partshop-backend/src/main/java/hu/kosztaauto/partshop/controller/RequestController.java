@@ -112,6 +112,15 @@ public class RequestController {
             return new ApiResponseDTO("Failed to add item: " + e.getReason());
         }
     }
+    @DeleteMapping("/deleteitem/{itemId}")
+    public ApiResponseDTO deleteItem(@PathVariable String itemId) {
+        try {
+            alkatreszService.deleteItem(itemId);
+            return new ApiResponseDTO("Item deleted successfully.");
+        } catch (ResponseStatusException e) {
+            return new ApiResponseDTO("Failed to delete item: " + e.getReason());
+        }
+    }
     /**
      * Updates the price of an item identified by its ID.
      *

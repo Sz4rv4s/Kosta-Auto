@@ -16,22 +16,27 @@ else
 {
     <EditForm Model="_component" OnValidSubmit="UpdatePriceAsync">
         <FluentValidationValidator />
-        <div>
+        <div class="form-group">
+            <label for="cikkszam">Cikkszam</label>
+            <InputText id="cikkszam" disabled @bind-Value="@_component.Cikkszam" class="form-control"></InputText>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div class="form-group">
             <label for="megnevezes">Megnevezes</label>
-            <InputText id="megnevezes" disabled @bind-Value="@_component.Megnevezes"></InputText>
+            <InputText id="megnevezes" disabled @bind-Value="@_component.Megnevezes" class="form-control"></InputText>
             <!-- <ValidationMessage /> -->
         </div>
-        <div>
+        <div class="form-group">
             <label for="auto-tipus">Tipus</label>
-            <InputText id="auto-tipus" disabled @bind-Value="@_component.AutoTipus"></InputText>
+            <InputText id="auto-tipus" disabled @bind-Value="@_component.AutoTipus" class="form-control"></InputText>
             <!-- <ValidationMessage /> -->
         </div>
-        <div>
+        <div class="form-group">
             <label for="ar">Ar</label>
-            <InputNumber id="ar" @bind-Value="@_component.Ar"></InputNumber>
+            <InputNumber id="ar" @bind-Value="@_component.Ar" class="form-control"></InputNumber>
             <!-- <ValidationMessage /> -->
         </div>
-        <button class="btn btn-secondary" type="submit"></button>
+        <button class="btn btn-secondary my-2" type="submit">Ar frissitese</button>
     </EditForm>
 }
 

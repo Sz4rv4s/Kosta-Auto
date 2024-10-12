@@ -17,7 +17,7 @@ else
                     <th>Varos</th>
                     <th>Cim</th>
                     <th>Kapacitas</th>
-                    <th></th>
+                    <th colspan="2"></th>
                </tr>
           </thead>
           <tbody>
@@ -30,6 +30,9 @@ else
                          <td>@warehouse.Kapacitas</td>
                          <td>
                               <a class="btn btn-secondary" href="warehousedetails/@warehouse.Id">Raktar reszletei</a>
+                         </td>
+                         <td>
+                              <a class="btn btn-secondary" href="addcomponent/@warehouse.Id">Uj termek felvete</a>
                          </td>
                     </tr>
                }
