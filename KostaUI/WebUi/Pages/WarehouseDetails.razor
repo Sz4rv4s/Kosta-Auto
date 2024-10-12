@@ -1,0 +1,75 @@
+﻿@page "/warehousedetails/{id:long}"
+
+@inject IWarehouseService WarehouseService;
+
+<h3>Raktar reszletei</h3>
+
+@if (_warehouse is null)
+{
+    <p>Raktar keresese...</p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Nev</th>
+                <th>Varos</th>
+                <th>Cim</th>
+                <th>Kapacitas</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@_warehouse.Nev</td>
+                <td>@_warehouse.Varos</td>
+                <td>@_warehouse.Cim</td>
+                <td>@_warehouse.Kapacitas</td>
+            </tr>
+        </tbody>
+    </table>
+    @if (_warehouse.Alkatreszek is not null)
+    {
+        <h2 class="my-5">A raktarhoz tartozo alkatreszek:</h2>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Cikkszam</th>
+                    <th>Megnevezes</th>
+                    <th>Autotipus</th>
+                    <th>Ar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var component in _warehouse.Alkatreszek)
+                {
+                    <tr>
+                        <td>@component.Cikkszam</td>
+                        <td>@component.Megnevezes</td>
+                        <td>@component.AutoTipus</td>
+                        <td>@component.Ar</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>Ez a raktar nem tartalmaz alkatreszeket...</p>
+    }
+}
+
+@code {
+
+    [Parameter] 
+    public long Id { get; set; }
+    
+    private WarehouseWithComponentsDto _warehouse;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _warehouse = (await WarehouseService.GetAllWarehousesByWarehouseIdAsync())
+            .FirstOrDefault(x => x.Id == Id);
+    }
+    
+}

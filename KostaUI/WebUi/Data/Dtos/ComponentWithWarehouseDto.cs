@@ -1,6 +1,6 @@
-﻿namespace hu.Kostaauto.WebUi.Data;
+﻿namespace hu.Kostaauto.WebUi.Data.Dtos;
 
 public class ComponentWithWarehouseDto : ComponentDto
 {
-    public WarehouseDto Raktar;
+    public WarehouseDto Raktar { get; set; }
 }

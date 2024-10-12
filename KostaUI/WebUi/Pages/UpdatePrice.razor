@@ -1,0 +1,64 @@
+﻿@page "/updateprice/{Id}"
+
+@using Blazored.FluentValidation
+
+@inject IWarehouseService WarehouseService;
+@inject IComponentService ComponentService;
+@inject NavigationManager NavigationManager;
+
+<h3>Termek Aranak Frissitese</h3>
+
+@if (_component is null)
+{
+    <p>betoltes...</p>
+}
+else
+{
+    <EditForm Model="_component" OnValidSubmit="UpdatePriceAsync">
+        <FluentValidationValidator />
+        <div>
+            <label for="megnevezes">Megnevezes</label>
+            <InputText id="megnevezes" disabled @bind-Value="@_component.Megnevezes"></InputText>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div>
+            <label for="auto-tipus">Tipus</label>
+            <InputText id="auto-tipus" disabled @bind-Value="@_component.AutoTipus"></InputText>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div>
+            <label for="ar">Ar</label>
+            <InputNumber id="ar" @bind-Value="@_component.Ar"></InputNumber>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <button class="btn btn-secondary" type="submit"></button>
+    </EditForm>
+}
+
+@code {
+    
+    [Parameter]
+    public string Id { get; set; }
+
+    private ComponentWithWarehouseDto _component;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _component = (await WarehouseService.GetAllWarehousesByItemIdAsync())
+            .FirstOrDefault(x => x.Cikkszam == Id);
+    }
+
+    private async Task UpdatePriceAsync()
+    {
+        var price = new UpdatePriceDto()
+        {
+            Id = _component.Cikkszam,
+            NewPrice = _component.Ar
+        };
+
+        await ComponentService.UpdatePriceAsync(price);
+        
+        NavigationManager.NavigateTo("listcomponents");
+    }
+
+}

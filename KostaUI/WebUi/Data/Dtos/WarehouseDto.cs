@@ -1,4 +1,4 @@
-﻿namespace hu.Kostaauto.WebUi.Data;
+﻿namespace hu.Kostaauto.WebUi.Data.Dtos;
 
 public class WarehouseDto
 {

@@ -1,0 +1,54 @@
+﻿@page "/listcomponents"
+
+@inject IWarehouseService WarehouseService;
+
+<h3>Alkatreszek</h3>
+
+@if (_components is null)
+{
+    <p>betoltes...</p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Cikkszam</th>
+                <th>Megnevezes</th>
+                <th>Autotipus</th>
+                <th>Ar</th>
+                <th>Raktar nev</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var component in _components)
+            {
+                <tr>
+                    <td>@component.Cikkszam</td>
+                    <td>@component.Megnevezes</td>
+                    <td>@component.AutoTipus</td>
+                    <td>@component.Ar</td>
+                    <td>@component.Raktar.Nev</td>
+                    <td>
+                        <a class="btn btn-secondary" href="updateprice/@component.Cikkszam">Ar modositasa</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-secondary" href="warehousedetails/@component.Raktar.Id">Raktar reszletei</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<ComponentWithWarehouseDto> _components;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _components = (await WarehouseService.GetAllWarehousesByItemIdAsync()).ToList();
+    }
+
+}

@@ -1,14 +1,12 @@
 ﻿@page "/listwarehouses"
-@using hu.Kostaauto.WebUi.Data
 
 @inject IWarehouseService WarehouseService
 
-<h3>List of Warehouses</h3>
+<h3>Raktarak</h3>
 
 @if (_warehouses is null)
 {
-     
-     <p>loading...</p>
+     <p>betoltes...</p>
 }
 else
 {
@@ -19,6 +17,7 @@ else
                     <th>Varos</th>
                     <th>Cim</th>
                     <th>Kapacitas</th>
+                    <th></th>
                </tr>
           </thead>
           <tbody>
@@ -29,6 +28,9 @@ else
                          <td>@warehouse.Varos</td>
                          <td>@warehouse.Cim</td>
                          <td>@warehouse.Kapacitas</td>
+                         <td>
+                              <a class="btn btn-secondary" href="warehousedetails/@warehouse.Id">Raktar reszletei</a>
+                         </td>
                     </tr>
                }
           </tbody>
