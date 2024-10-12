@@ -20,7 +20,7 @@ else
                 <th>Autotipus</th>
                 <th>Ar</th>
                 <th>Raktar nev</th>
-                <th colspan="3"></th>
+                <th colspan="4"></th>
             </tr>
         </thead>
         <tbody>
@@ -37,6 +37,9 @@ else
                     </td>
                     <td>
                         <a class="btn btn-secondary" href="warehousedetails/@component.Raktar.Id">Raktar reszletei</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="updatecomponent/@component.Cikkszam">Adatok frissitese</a>
                     </td>
                     <td>
                         <a class="btn btn-danger" @onclick="() => DeleteItemAsync(component.Cikkszam)">Termek torlese</a>

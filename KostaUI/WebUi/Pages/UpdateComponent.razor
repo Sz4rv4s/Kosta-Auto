@@ -1,0 +1,87 @@
+﻿@page "/updatecomponent/{id}"
+
+@using Blazored.FluentValidation
+
+@inject IWarehouseService WarehouseService;
+@inject IComponentService ComponentService;
+@inject NavigationManager NavigationManager;
+
+<h3>Termek Adatainak Frissitese</h3>
+
+@if (_component is null || _warehouses is null)
+{
+    <p>betoltes...</p>
+}
+else
+{
+    <EditForm Model="_componentUpdate" OnValidSubmit="UpdateComponentAsync">
+        <FluentValidationValidator />
+        <div class="form-group">
+            <label for="megnevezes">Megnevezes</label>
+            <InputText id="megnevezes" @bind-Value="@_componentUpdate.Megnevezes" class="form-control"></InputText>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div class="form-group">
+            <label for="auto-tipus">Tipus</label>
+            <InputText id="auto-tipus" @bind-Value="@_componentUpdate.AutoTipus" class="form-control"></InputText>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div class="form-group">
+            <label for="ar">Ar</label>
+            <InputNumber id="ar" @bind-Value="@_componentUpdate.Ar" class="form-control"></InputNumber>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <div class="form-group">
+            <label for="raktar">Raktar</label>
+            <InputSelect id="raktar" @bind-Value="@_componentUpdate.RaktarId" class="form-control">
+                @foreach (var warehouse in _warehouses)
+                {
+                    @if (warehouse.Id == _componentUpdate.RaktarId)
+                    {
+                        <option value="@warehouse.Id" selected>@warehouse.Nev</option>
+                    }
+                    else
+                    {
+                        <option value="@warehouse.Id">@warehouse.Nev</option>
+                    }
+                }
+            </InputSelect>
+            <!-- <ValidationMessage /> -->
+        </div>
+        <button class="btn btn-secondary my-2" type="submit">Adatok frissitese</button>
+    </EditForm>
+}
+
+@code {
+
+    [Parameter]
+    public string Id { get; set; }
+
+    private UpdateComponentDto _componentUpdate;
+    private ComponentWithWarehouseDto _component;
+    private List<WarehouseDto> _warehouses;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _component = (await WarehouseService.GetAllWarehousesByItemIdAsync())
+        .FirstOrDefault(x => x.Cikkszam == Id);
+
+        _componentUpdate = new UpdateComponentDto()
+        {
+            Megnevezes = _component.Megnevezes,
+            AutoTipus = _component.AutoTipus,
+            Ar = _component.Ar,
+            RaktarId = _component.Raktar.Id,
+        };
+
+        _warehouses = (await WarehouseService.GetAllWarehousesAsync()).ToList();
+    }
+
+    private async Task UpdateComponentAsync()
+    {
+        await ComponentService.UpdateItemAsync(Id, _componentUpdate);
+
+        NavigationManager.NavigateTo("listcomponents");
+    }
+
+}
