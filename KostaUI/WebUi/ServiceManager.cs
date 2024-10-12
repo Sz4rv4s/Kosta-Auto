@@ -7,7 +7,7 @@ public static class ServiceManager
 {
     public static IServiceCollection AddWebuiServices(this IServiceCollection service)
     {
-        var uri = new Uri("https://localhost:5001/");
+        var uri = new Uri("http://localhost:8080/");
         
         var settings = new RefitSettings()
         {

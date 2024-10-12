@@ -8,7 +8,7 @@ public interface IComponentService
     [Get("/api/getallitems")]
     Task<IEnumerable<ComponentDto>> GetComponentsAsync();
     
-    [Get("/api/search/{id}")]
+    [Get("/api/search/{name}")]
     Task<ComponentDto> GetComponentByNameAsync(string name);
     
     [Get("/api/getitem/{id}")]

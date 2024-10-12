@@ -1,0 +1,47 @@
+﻿@page "/listwarehouses"
+@using hu.Kostaauto.WebUi.Data
+
+@inject IWarehouseService WarehouseService
+
+<h3>List of Warehouses</h3>
+
+@if (_warehouses is null)
+{
+     
+     <p>loading...</p>
+}
+else
+{
+     <table class="table table-hover">
+          <thead>
+               <tr>
+                    <th>Nev</th>
+                    <th>Varos</th>
+                    <th>Cim</th>
+                    <th>Kapacitas</th>
+               </tr>
+          </thead>
+          <tbody>
+               @foreach (var warehouse in _warehouses)
+               {
+                    <tr>
+                         <td>@warehouse.Nev</td>
+                         <td>@warehouse.Varos</td>
+                         <td>@warehouse.Cim</td>
+                         <td>@warehouse.Kapacitas</td>
+                    </tr>
+               }
+          </tbody>
+     </table>
+}
+
+@code {
+     
+     private List<WarehouseDto> _warehouses;
+
+     protected override async Task OnInitializedAsync()
+     {
+          _warehouses = (await WarehouseService.GetAllWarehousesAsync()).ToList();
+     }
+
+}

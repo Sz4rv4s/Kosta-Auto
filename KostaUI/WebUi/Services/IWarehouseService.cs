@@ -12,11 +12,11 @@ public interface IWarehouseService
     Task<IEnumerable<WarehouseWithComponentsDto>> GetAllWarehousesByWarehouseIdAsync();
     
     [Get("/api/getallwarehousesbyitem")]
-    Task<IEnumerable<WarehouseWithComponentsDto>> GetAllWarehousesByItemIdAsync();
+    Task<IEnumerable<ComponentWithWarehouseDto>> GetAllWarehousesByItemIdAsync();
     
     [Get("/api/getwarehousebyid/{warehouseId}")]
-    Task<WarehouseWithComponentsDto> GetWarehouseByIdAsync(long warehouseId);
+    Task<WarehouseDto> GetWarehouseByIdAsync(long warehouseId);
     
     [Get("/api/getwarehousebyname/{warehouseName}")]
-    Task<WarehouseWithComponentsDto> GetWarehouseByNameAsync(string warehouseName);
+    Task<WarehouseDto> GetWarehouseByNameAsync(string warehouseName);
 }
