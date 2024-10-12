@@ -18,7 +18,7 @@ public interface IComponentService
     [Post("/api/additem/{warehouseId}")]
     Task AddItemToWarehouseAsync(long warehouseId, ComponentDto item);
     
-    [Put("/api/updateprice")]
+    [Patch("/api/updateprice")]
     Task UpdatePriceAsync(UpdatePriceDto update);
 
     [Put("/api/updateitem/{id}")]

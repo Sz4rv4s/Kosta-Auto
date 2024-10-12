@@ -2,6 +2,7 @@
 
 @inject IWarehouseService WarehouseService;
 @inject IComponentService ComponentService;
+@inject NavigationManager NavigationManager;
 
 <h3>Alkatreszek</h3>
 
@@ -58,6 +59,8 @@ else
     private async Task DeleteItemAsync(string id)
     {
         await ComponentService.DeleteItemAsync(id);
+        
+        NavigationManager.Refresh();
     }
 
 }

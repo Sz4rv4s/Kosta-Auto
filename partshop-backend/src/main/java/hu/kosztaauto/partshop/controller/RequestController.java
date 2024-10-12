@@ -127,7 +127,7 @@ public class RequestController {
      * @param updatePriceDTO DTO containing the item ID and the new price.
      * @return ApiResponseDTO containing success or failure message.
      */
-    @PutMapping("/updateprice")
+    @PatchMapping("/updateprice")
     public ApiResponseDTO updatePrice(@RequestBody UpdatePriceDTO updatePriceDTO) {
         try {
             alkatreszService.updateItemPrice(updatePriceDTO.getId(), updatePriceDTO.getNewPrice());
