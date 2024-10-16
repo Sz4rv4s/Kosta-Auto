@@ -1,6 +1,8 @@
 package hu.kosztaauto.partshop.service;
 
 import hu.kosztaauto.partshop.dto.RaktarDTO;
+import hu.kosztaauto.partshop.dto.RaktarWithItemsDTO;
+import hu.kosztaauto.partshop.model.Alkatresz;
 import hu.kosztaauto.partshop.model.Raktar;
 import hu.kosztaauto.partshop.repository.RaktarRepository;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RaktarServiceTest {
@@ -50,6 +51,24 @@ public class RaktarServiceTest {
 
         //then
         Assertions.assertEquals( raktarList.size(), list.size() );
+    }
+
+    @Test void testConvertToRaktarWithItemsDTOShouldConvertToRaktarWithItemsDTO() {
+        //given
+
+        Alkatresz alkatresz = new Alkatresz(
+          "cikkszam","megnevezes","autotipus",1000
+        );
+
+        Raktar raktar = new Raktar(
+                1L,"nev","varos","cim",15, List.of(alkatresz)
+        );
+
+        //when
+        RaktarWithItemsDTO raktarWithItemsDTO  = raktarService.convertToRaktarWithItemsDTO(raktar);
+
+        //then
+        Assertions.assertEquals(raktarWithItemsDTO.getAlkatreszek().size(), raktar.getAlkatreszek().size());
     }
 
     @Test
