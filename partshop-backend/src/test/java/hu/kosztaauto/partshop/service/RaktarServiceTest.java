@@ -79,6 +79,24 @@ public class RaktarServiceTest {
     }
 
     @Test
+    public void testGetItemsByWarehouseNameShouldReturnItemsByWarehouseName() {
+        //given
+        String name = "nev";
+        Raktar raktar = new Raktar(
+                1L,"nev","varos","cim",15, List.of(
+                new Alkatresz("cikkszam","megnevezes","tipus",1500)
+        )
+        );
+        Mockito.when(raktarRepository.findByNevContainingIgnoreCase( name ) ).thenReturn(List.of(raktar));
+
+        //when
+        List<RaktarWithItemsDTO> lista = raktarService.getItemsByWarehouseName(name);
+
+        //then
+        Assertions.assertEquals(1, lista.size() );
+    }
+
+    @Test
     public void testConvertToRaktarWithItemsDTOShouldConvertToRaktarWithItemsDTO() {
         //given
 
