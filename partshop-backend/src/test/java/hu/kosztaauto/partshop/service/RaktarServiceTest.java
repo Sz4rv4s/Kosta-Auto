@@ -8,7 +8,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RaktarServiceTest {
 
@@ -21,6 +25,31 @@ public class RaktarServiceTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks( this );
+    }
+
+    @Test
+    public void testGetAllWarehousesShouldReturnAllWarehousese() {
+        //given
+        Raktar r1 = new Raktar(
+                1L,"nev","varos","cim",15
+        );
+
+        Raktar r2 = new Raktar(
+                2L,"neve","varosa","cime",17
+        );
+
+        Raktar r3 = new Raktar(
+                3L,"ne","varo","ci",19
+        );
+
+        List<Raktar> raktarList = List.of(r1, r2, r3);
+        Mockito.when( raktarRepository.findAll() ).thenReturn(raktarList);
+
+        //when
+        List<RaktarDTO> list = raktarService.getAllWarehouses();
+
+        //then
+        Assertions.assertEquals( raktarList.size(), list.size() );
     }
 
     @Test
