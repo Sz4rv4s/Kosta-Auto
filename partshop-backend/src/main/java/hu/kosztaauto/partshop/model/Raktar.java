@@ -1,6 +1,7 @@
 package hu.kosztaauto.partshop.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Raktar {
         /** The unique identifier for the warehouse. */
         @Id
@@ -30,4 +32,12 @@ public class Raktar {
         /** One-to-many relationship with Alkatresz. List of car parts stored in the warehouse. */
         @OneToMany(mappedBy = "raktar", fetch = FetchType.LAZY)
         private List<Alkatresz> alkatreszek;
+
+        public Raktar(Long id, String nev, String varos, String cim, int kapacitas) {
+                this.id = id;
+                this.nev = nev;
+                this.varos = varos;
+                this.cim = cim;
+                this.kapacitas = kapacitas;
+        }
 }

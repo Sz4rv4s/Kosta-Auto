@@ -69,7 +69,7 @@ public class RaktarService {
      * @param raktar The warehouse entity to convert.
      * @return The converted warehouse DTO.
      */
-    private RaktarDTO convertToRaktarDTO(Raktar raktar) {
+    public RaktarDTO convertToRaktarDTO(Raktar raktar) {
         return new RaktarDTO(
                 raktar.getId(),
                 raktar.getNev(),
@@ -84,7 +84,7 @@ public class RaktarService {
      * @param raktar The warehouse entity to convert.
      * @return The converted warehouse DTO with associated items.
      */
-    private RaktarWithItemsDTO convertToRaktarWithItemsDTO(Raktar raktar) {
+    public RaktarWithItemsDTO convertToRaktarWithItemsDTO(Raktar raktar) {
         List<AlkatreszDTO> alkatreszek = raktar.getAlkatreszek().stream()
                 .map(alkatresz -> new AlkatreszDTO(
                         alkatresz.getCikkszam(),

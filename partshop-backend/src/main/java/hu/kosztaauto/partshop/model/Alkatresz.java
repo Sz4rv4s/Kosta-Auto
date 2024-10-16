@@ -1,6 +1,7 @@
 package hu.kosztaauto.partshop.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,4 +27,11 @@ public class Alkatresz {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "raktar_id")
     private Raktar raktar;
+
+    public Alkatresz(String cikkszam, String megnevezes, String autoTipus, int ar) {
+        this.cikkszam = cikkszam;
+        this.megnevezes = megnevezes;
+        this.autoTipus = autoTipus;
+        this.ar = ar;
+    }
 }
