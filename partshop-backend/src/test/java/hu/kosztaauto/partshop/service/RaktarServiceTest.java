@@ -14,6 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
+import java.util.Optional;
 
 public class RaktarServiceTest {
 
@@ -94,6 +95,25 @@ public class RaktarServiceTest {
 
         //then
         Assertions.assertEquals(1, lista.size() );
+    }
+
+    @Test
+    public void testGetItemsByWarehouseIdShouldReturnItemsByWarehouseId() {
+        //given
+        Long warehouseId = 1L;
+        Raktar raktar = new Raktar(
+                1L,"nev","varos","cim",15, List.of(
+                new Alkatresz("cikkszam","megnevezes","tipus",1500)
+        )
+        );
+        Mockito.when(raktarRepository.findById(warehouseId)).thenReturn(Optional.of(raktar));
+
+        //when
+        RaktarWithItemsDTO raktarWithItemsDTO = raktarService.getItemsByWarehouseId(warehouseId);
+
+        //then
+        Assertions.assertEquals(raktarWithItemsDTO.getAlkatreszek().size(), raktar.getAlkatreszek().size() );
+
     }
 
     @Test
