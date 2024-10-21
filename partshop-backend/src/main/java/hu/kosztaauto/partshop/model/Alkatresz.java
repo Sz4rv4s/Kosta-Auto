@@ -13,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Alkatresz {
     /** The unique identifier of the car part (cikkszam). */
     @Id
