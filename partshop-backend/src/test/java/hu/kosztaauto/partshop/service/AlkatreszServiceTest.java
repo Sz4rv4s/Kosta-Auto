@@ -155,4 +155,22 @@ public class AlkatreszServiceTest {
         Assertions.assertEquals(alkatresz.getAutoTipus(), alkatreszDTO.getAutoTipus());
         Assertions.assertEquals(alkatresz.getAr(), alkatreszDTO.getAr());
     }
+
+    @Test
+    public void testSearchByNameShouldReturnItemByName() {
+        //given
+        String name = "megnevezes";
+
+        Alkatresz alkatresz = new Alkatresz(
+                "cikkszam","megnevezes","autotipus",1000
+        );
+
+        Mockito.when(alkatreszRepository.findByMegnevezesContainingIgnoreCase(name)).thenReturn(List.of(alkatresz));
+
+        //when
+        List<AlkatreszDTO> lista = alkatreszService.searchByName(name);
+
+        //then
+        Assertions.assertEquals(1, lista.size());
+    }
 }
