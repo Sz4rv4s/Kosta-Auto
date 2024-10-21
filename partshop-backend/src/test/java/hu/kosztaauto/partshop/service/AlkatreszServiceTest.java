@@ -108,4 +108,30 @@ public class AlkatreszServiceTest {
         //then
         Assertions.assertEquals(alkatreszList.size(), list.size());
     }
+
+    @Test
+    public void testGetAllWarehousesByItemShouldReturnAllWarehousesByItem() {
+        //given
+        Raktar raktar = new Raktar(
+                1L,"nev","varos","cim",15
+        );
+
+        Alkatresz a1 = new Alkatresz(
+                "cikkszam1","megnevezes1","autotipus1",1001, raktar
+        );
+
+        Alkatresz a2 = new Alkatresz(
+                "cikkszam2","megnevezes2","autotipus2",1002, raktar
+        );
+
+        List<Alkatresz> alkatreszList = List.of(a1, a2);
+        Mockito.when( alkatreszRepository.findAll() ).thenReturn(alkatreszList);
+
+        //when
+        List<AlkatreszWithWarehouseDTO> list = alkatreszService.getAllWarehousesByItem();
+
+        //then
+        Assertions.assertEquals(alkatreszList.size(), list.size());
+    }
+
 }
