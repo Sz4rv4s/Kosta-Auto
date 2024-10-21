@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.List;
+import java.util.Optional;
 
 public class AlkatreszServiceTest {
 
@@ -134,4 +135,24 @@ public class AlkatreszServiceTest {
         Assertions.assertEquals(alkatreszList.size(), list.size());
     }
 
+    @Test
+    public void testGetItemByIdShouldReturnItemById() {
+        //given
+        String id = "cikkszam";
+
+        Alkatresz alkatresz = new Alkatresz(
+                "cikkszam","megnevezes","autotipus",1000
+        );
+
+        Mockito.when(alkatreszRepository.findById(id)).thenReturn(Optional.of(alkatresz));
+
+        //when
+        AlkatreszDTO alkatreszDTO = alkatreszService.getItemById(id);
+
+        //then
+        Assertions.assertEquals(alkatresz.getCikkszam(), alkatreszDTO.getCikkszam());
+        Assertions.assertEquals(alkatresz.getMegnevezes(), alkatreszDTO.getMegnevezes());
+        Assertions.assertEquals(alkatresz.getAutoTipus(), alkatreszDTO.getAutoTipus());
+        Assertions.assertEquals(alkatresz.getAr(), alkatreszDTO.getAr());
+    }
 }
