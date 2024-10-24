@@ -141,7 +141,7 @@ public class AlkatreszService {
      * @param alkatresz The car part entity to convert.
      * @return The converted car part DTO.
      */
-    private AlkatreszDTO convertToAlkatreszDTO(Alkatresz alkatresz) {
+    public AlkatreszDTO convertToAlkatreszDTO(Alkatresz alkatresz) {
         return new AlkatreszDTO(
                 alkatresz.getCikkszam(),
                 alkatresz.getMegnevezes(),
@@ -155,7 +155,7 @@ public class AlkatreszService {
      * @param alkatresz The car part entity to convert.
      * @return The converted car part DTO with associated warehouse information.
      */
-    private AlkatreszWithWarehouseDTO convertToAlkatreszWithWarehouseDTO(Alkatresz alkatresz) {
+    public AlkatreszWithWarehouseDTO convertToAlkatreszWithWarehouseDTO(Alkatresz alkatresz) {
         RaktarDTO raktarDTO = new RaktarDTO(
                 alkatresz.getRaktar().getId(),
                 alkatresz.getRaktar().getNev(),

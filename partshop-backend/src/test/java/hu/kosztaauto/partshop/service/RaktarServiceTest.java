@@ -112,7 +112,12 @@ public class RaktarServiceTest {
         RaktarWithItemsDTO raktarWithItemsDTO = raktarService.getItemsByWarehouseId(warehouseId);
 
         //then
-        Assertions.assertEquals(raktarWithItemsDTO.getAlkatreszek().size(), raktar.getAlkatreszek().size() );
+        Assertions.assertEquals(raktarWithItemsDTO.getId(), raktar.getId());
+        Assertions.assertEquals(raktarWithItemsDTO.getNev(), raktar.getNev());
+        Assertions.assertEquals(raktarWithItemsDTO.getVaros(), raktar.getVaros());
+        Assertions.assertEquals(raktarWithItemsDTO.getCim(), raktar.getCim());
+        Assertions.assertEquals(raktarWithItemsDTO.getKapacitas(), raktar.getKapacitas());
+        Assertions.assertEquals(raktarWithItemsDTO.getAlkatreszek().size(), raktar.getAlkatreszek().size());
 
     }
 
