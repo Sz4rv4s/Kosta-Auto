@@ -2,6 +2,10 @@ package hu.kosztaauto.partshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 /**
  * Entry point for the Kosta Auto Part Shop application.
  * This class serves as the main entry point of the Spring Boot application.
@@ -16,6 +20,16 @@ public class KostaAutoPartShopApplication {
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(KostaAutoPartShopApplication.class, args);
+
 	}
 
+	@Configuration
+	public static class WebConfiguration implements WebMvcConfigurer {
+		@Override
+		public void addCorsMappings(CorsRegistry registry) {
+			registry.addMapping("/**")
+					.allowedOrigins("*")
+					.allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH");
+		}
+	}
 }
