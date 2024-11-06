@@ -17,6 +17,5 @@ public class KostaAutoPartShopApplication {
 	 */
 	public static void main(String[] args) {
 		SpringApplication.run(KostaAutoPartShopApplication.class, args);
-
 	}
 }
