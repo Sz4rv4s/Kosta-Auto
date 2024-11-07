@@ -2,6 +2,7 @@ package hu.kosztaauto.partshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  * Entry point for the Kosta Auto Part Shop application.
  * This class serves as the main entry point of the Spring Boot application.
@@ -17,5 +18,4 @@ public class KostaAutoPartShopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KostaAutoPartShopApplication.class, args);
 	}
-
 }
