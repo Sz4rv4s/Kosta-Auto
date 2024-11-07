@@ -1,0 +1,34 @@
+name: UI_CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v3
+
+      - name: Set up .NET SDK 8.0
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0
+
+      - name: Restore dependencies
+        run: dotnet restore
+        working-directory: KostaUI
+
+      - name: Build the Blazor app
+        run: dotnet build --no-restore --configuration Release
+        working-directory: KostaUI
+
+      - name: Run tests
+        run: dotnet test --no-restore --configuration Release
+        working-directory: KostaUI
