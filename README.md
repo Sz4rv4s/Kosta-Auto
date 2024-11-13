@@ -31,7 +31,7 @@ The API enables CRUD (Create, Read, Update, Delete) operations on car parts and 
 ## Technologies Used
 
 - **Backend**:
-  - **Java 17**
+  - **Java 21**
   - **Spring Boot** (v2.5.6+)
   - **Spring Data JPA**: For database interactions.
   - **H2 Database**: In-memory database for development and testing.
